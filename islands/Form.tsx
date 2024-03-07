@@ -25,6 +25,20 @@ export default function Form() {
           onInput={(e) => setUrl((e.target as HTMLInputElement).value)}
           class="rounded-md px-2 hover:outline-none focus:outline-none shadow-lg py-2 border-dotted border-black border-2 w-full"
         />
+        <div class="mr-auto gap-2 flex flex-col">
+          <label
+            htmlFor="expires_at"
+            class=""
+          >
+            Expires At
+          </label>
+          <input
+            type="date"
+            name="expires_at"
+            id="expires_at"
+            class="border-dotted border-black border-2 shadow-lg w-fit px-2 py-1 rounded-md"
+          />
+        </div>
         <button
           type="button"
           onClick={() => store()}
@@ -37,3 +51,9 @@ export default function Form() {
     </div>
   );
 }
+
+// interface FormState {
+//   url: string;
+//   shortUrl: string;
+//   expire;
+// }

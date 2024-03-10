@@ -7,8 +7,12 @@ export const handler = async (
   _ctx: FreshContext,
 ): Promise<Response> => {
   const alias = createAlias(5);
-  const { url } = await req.json() as NewUrl;
-  await kv.set([alias], [url]);
+  const { url, expireTimestamp } = await req.json() as NewUrl;
+  if (expireTimestamp) {
+    await kv.set([alias], [url], { expireIn: expireTimestamp });
+  } else {
+    await kv.set([alias], [url]);
+  }
   return new Response(JSON.stringify({
     alias,
     url,
@@ -17,4 +21,5 @@ export const handler = async (
 
 interface NewUrl {
   url: string;
+  expireTimestamp?: number | null;
 }

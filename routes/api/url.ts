@@ -9,7 +9,9 @@ export const handler = async (
   const alias = createAlias(5);
   const { url, expireTimestamp } = await req.json() as NewUrl;
   if (expireTimestamp) {
-    await kv.set([alias], [url], { expireIn: expireTimestamp });
+    await kv.set([alias], [url], {
+      expireIn: expireTimestamp - new Date().getTime(),
+    });
   } else {
     await kv.set([alias], [url]);
   }
